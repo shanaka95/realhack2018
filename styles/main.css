@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab');
 
 html, body {
   font-family: 'Roboto', 'Helvetica', sans-serif;
@@ -200,4 +201,9 @@ main, #messages-card {
 
 .mdl-color--light-blue-700{
   background-color: #3f51b5 !important;
+}
+
+.mdl-button--colored{
+  background: #3f51b5 !important;
+  color: #fff !important;
 }
