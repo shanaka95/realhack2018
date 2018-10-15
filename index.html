@@ -19,31 +19,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ellipsis Chat</title>
 
-  <!-- Disable tap highlight on IE -->
-  <meta name="msapplication-tap-highlight" content="no">
-
-  <!-- Web Application Manifest -->
-  <link rel="manifest" href="manifest.json">
-
-  <!-- Add to homescreen for Chrome on Android -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="Friendly Chat">
-  <meta name="theme-color" content="#303F9F">
-
-  <!-- Add to homescreen for Safari on iOS -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Friendly Chat">
-  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
-
-  <!-- Tile icon for Win8 -->
-  <meta name="msapplication-TileColor" content="#3372DF">
-  <meta name="msapplication-navbutton-color" content="#303F9F">
-
   <!-- Material Design Lite -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
   <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
   <!-- App Styling -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
@@ -56,7 +38,7 @@
   <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
     <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
       <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-        <h3><i class="material-icons">chat_bubble_outline</i> Ellipsis Chat</h3>
+        <h3><i class="material-icons">forum</i> Ellipsis Chat</h3>
       </div>
       <div id="user-container">
         <div hidden id="user-pic"></div>
@@ -89,7 +71,7 @@
               Send
             </button>
           </form>
-          <form id="image-form" action="#">
+          <form id="image-form" action="#" style="display:none">
             <input id="mediaCapture" type="file" accept="image/*,capture=camera">
             <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
               <i class="material-icons">image</i>
@@ -354,11 +336,25 @@ FriendlyChat.resetMaterialTextfield = function(element) {
 };
 
 // Template for messages.
-FriendlyChat.MESSAGE_TEMPLATE =
+FriendlyChat.MESSAGE_TEMPLATE_LEFT =
     '<div class="message-container">' +
       '<div class="spacing"><div class="pic"></div></div>' +
       '<div class="message"></div>' +
       '<div class="name"></div>' +
+    '</div>';
+
+// Template for messages.
+FriendlyChat.MESSAGE_TEMPLATE_RIGHT =
+    '<div class="message-container container">' +
+      '<div class="row">'+
+        '<div class="col">'+
+        '<div class="float-right">'+
+          '<div class="message"></div>' +
+           '<div class="pic" hidden></div></div>'+
+          '<div class="name" hidden></div>' +
+         
+        '</div></div>'+
+      '</div>'+
     '</div>';
 
 // A loading image URL.
@@ -370,7 +366,13 @@ FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageU
   // If an element for that message does not exists yet we create it.
   if (!div) {
     var container = document.createElement('div');
-    container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE;
+    //container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE_LEFT;
+    if (name == this.userName.innerHTML){
+      console.log(name);
+      container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE_RIGHT;
+    }else{
+      container.innerHTML = FriendlyChat.MESSAGE_TEMPLATE_LEFT;
+    }
     div = container.firstChild;
     div.setAttribute('id', key);
     this.messageList.appendChild(div);

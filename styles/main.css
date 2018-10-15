@@ -197,3 +197,7 @@ main, #messages-card {
   top: -1px;
   margin-right: 5px;
 }
+
+.mdl-color--light-blue-700{
+  background-color: #3f51b5 !important;
+}
